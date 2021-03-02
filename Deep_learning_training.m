@@ -1,5 +1,5 @@
 %Load the image labelled data
-load ('deep_gt_automated.mat');
+load ('counterclockwise_rcnn.mat');
 
 %Generate training data    
 trainingData = objectDetectorTrainingData(gTruth);
@@ -14,8 +14,10 @@ trainingData = objectDetectorTrainingData(gTruth);
         'MaxEpochs', 100, ...
         'Verbose', true, ...
         'ExecutionEnvironment','gpu');
- % pretrained data   
+ 
+% pretrained data   
 load('rcnnStopSigns.mat','cifar10Net');
+
 %Train an R-CNN object detector using pretrained dataset    
 rcnn = trainRCNNObjectDetector(trainingData, cifar10Net, options, ...
 'NegativeOverlapRange', [0 0.3], 'PositiveOverlapRange',[0.5 1]) 
